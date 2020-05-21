@@ -1,0 +1,58 @@
+body, html{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    width: 1200px;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    height: 100vh;
+    margin: 0 auto;
+    text-align: center;
+}
+
+input{
+    width: 300px;
+}
+
+.table-header{
+    margin-top: 30px;
+}
+
+.consols{
+    display: flex;
+    border: 1px solid black;
+    justify-content: space-between;
+    
+}
+
+#CancelConsole{
+    padding: 20px;
+}
+
+
+#RequestConsole{
+    border-left: 1px solid black;
+    padding: 20px;
+    
+}
+
+
+#RequestsAfterAnaliz{
+    border-left: 1px solid black;
+    padding: 20px;
+}
+
+
+#CancelConsoleAfterAnaliz{
+    border-left: 1px solid black;
+    padding: 20px;
+}
+
+h2{
+    padding: 30px;
+}
+
+/* button{
+    display: inline-block;
+} */

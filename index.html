@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>12 лаб раб</title>
+</head>
+<body>
+    <div class="container">
+        <p>Примечание: все дробные числа вводить через точку (0.2)</p>
+        <h3>Количество заявок</h3>
+        <input type="text" placeholder="Введите время период работы системы" id="numRequest" >
+
+        <h3>Интенсивность потока заявок</h3>
+        <input type="text" placeholder="Введите интенсивность потока" id="intensivnostPostuplenia">
+        
+        <h3>Интенсивность потока обслуживания</h3>
+        <input type="text" placeholder="Введите интенсивность обработки" id="intensivnostObrabotki">
+
+        <h3>Вероятность выпадения отказа 1 уровня</h3>
+        <input type="text" placeholder="Вероятность выпадения отказа 1 уровня" id="pCancel">
+
+        <h3>Среднее время безотказной работы системы</h3>
+        <input type="text" placeholder="среднее время безотказной работы системы" id="tCancelAverage">
+
+        <button onclick="ChooseClick()">Рассчитать</button>
+        
+        <div class="consols table-header">
+            <h2>Поток отказов до анализа</h2>
+            <h2>Поток отказов после анализа</h2>
+            <h2>Заявки</h2>
+            <h2>Заявки после анализ</h2>
+        </div>
+        <div class="consols">
+            <div id="CancelConsole"><h2>Поток отказов до анализа</h2></div>
+            <div id="CancelConsoleAfterAnaliz"><h2>Поток отказов после анализа</h2></div>
+            <div id="RequestConsole"><h2>Заявки</h2></div>
+            <div id="RequestsAfterAnaliz"><h2>Заявки после анализ</h2></div>
+        </div>
+        
+        
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
