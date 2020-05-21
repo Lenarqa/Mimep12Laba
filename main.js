@@ -31,7 +31,6 @@ function Cancel(numRequest){
         var z = Math.random();
          console.log("z = " + z);
         if(z < pCancel){
-            console.log("_________________________________")
             cancels[i].pr = 1;
         }else{
             cancels[i].pr = 2;
@@ -103,6 +102,7 @@ function Analiz(tEnd, tCancel, tBegin, tFixedLastCancel){
 }
 
 function ChooseClick(){
+    tFixedLastCancel = 0;
     //очищаем консоли
     requestCosnole.innerHTML = "";
     CancelConsole.innerHTML = "";
@@ -182,5 +182,5 @@ function ChooseClick(){
     console.log("заявки после работы с F");
     console.log(requests);
 
-   
+   delete cancels;
 }
