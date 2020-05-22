@@ -22,19 +22,18 @@ input{
 .consols{
     display: flex;
     border: 1px solid black;
-    justify-content: space-between;
-    
+    margin-top: 10vh;
+    text-align: center;
 }
 
 #CancelConsole{
-    padding: 20px;
+    width: 50%;
 }
 
 
 #RequestConsole{
+    width: 50%;
     border-left: 1px solid black;
-    padding: 20px;
-    
 }
 
 

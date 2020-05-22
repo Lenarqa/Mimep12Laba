@@ -21,6 +21,10 @@
         <h3>Интенсивность потока заявок</h3>
         <input type="text" placeholder="Введите интенсивность потока" id="intensivnostPostuplenia">
         
+        <h3>Введите количество отказов</h3>
+        <input type="text" placeholder="Введите количество отказов" id="numCancels">
+        
+
         <h3>Интенсивность потока обслуживания</h3>
         <input type="text" placeholder="Введите интенсивность обработки" id="intensivnostObrabotki">
 
@@ -32,17 +36,18 @@
 
         <button onclick="ChooseClick()">Рассчитать</button>
         
-        <div class="consols table-header">
+        <!-- <div class="consols table-header">
             <h2>Поток отказов до анализа</h2>
             <h2>Поток отказов после анализа</h2>
             <h2>Заявки</h2>
             <h2>Заявки после анализ</h2>
-        </div>
+        </div> -->
         <div class="consols">
             <div id="CancelConsole"><h2>Поток отказов до анализа</h2></div>
-            <div id="CancelConsoleAfterAnaliz"><h2>Поток отказов после анализа</h2></div>
+            <!-- <div id="CancelConsoleAfterAnaliz"><h2>Поток отказов после анализа</h2></div> -->
             <div id="RequestConsole"><h2>Заявки</h2></div>
-            <div id="RequestsAfterAnaliz"><h2>Заявки после анализ</h2></div>
+            <div id="ResConsole"><h2>Заявки после работы</h2></div>
+            <!-- <div id="RequestsAfterAnaliz"><h2>Заявки после анализ</h2></div> -->
         </div>
         
         
