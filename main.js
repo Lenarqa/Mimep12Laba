@@ -9,6 +9,7 @@ var goodRequest;//количество обработанных заявок
 //консоли
 var requestCosnole = document.getElementById('RequestConsole');
 var CancelConsole = document.getElementById('CancelConsole');
+var resConsole = document.getElementById('ResConsole');
 //var RequestsAfterAnaliz = document.getElementById('RequestsAfterAnaliz');
 //var CancelConsoleAfterAnaliz = document.getElementById('CancelConsoleAfterAnaliz');
 var numCancels = document.getElementById('numCancels');
@@ -64,7 +65,7 @@ function CreatePotok1(type,numRequest){
             priority:0,
             tBeginDoobslushit: 0,
             tEndDoobslushit:0,
-            dangerous: ""
+            dangerous: "нет"
         };
         requests[i].id = i;
         if(i < 1){
@@ -114,7 +115,7 @@ function Serving(){
 function ChooseClick(){
     goodRequest = 0;//количество обработанных заявок
     var i;
-    
+    var iFind = 0;
     ClearConsols();//чистим все консоли.
 
     //Присваиваем значения из html страницы
@@ -126,60 +127,77 @@ function ChooseClick(){
     typeRequestPotok = document.getElementById('typeRequestPotok').value;
     numRequest = document.getElementById('numRequest').value;
     numCancels = document.getElementById('numCancels').value;
+    resConsole = document.getElementById('ResConsole');
     
     Cancel(numCancels); // формируем массив отказов
     CreatePotok1(typeRequestPotok, numRequest);//формируем массив заявок
     ShowInConsole(1);//вывод на сайт поток заявок
     ShowInConsole(2);//вывод на сайт поток откразов
+    
+    // i = 0;
+    // while(i < numCancels){
+    //     console.log("numCancels " + i);
+        
+    //     let j = 0;
+    //     while(j < numRequest && iFind < i){
+    //         console.log("request = " + j);
+    //         j++;
+    //     }
+    //     i++;
+    // }
+    
 
     i = 0;
     while(i < numCancels){
         let j = 0;
-        var iFind = 0;
-        while(j < numRequest && i > iFind){
-            if(requests[i].timeBegin < cancels[i].tCancel && cancels[i].tFixedLastCancel < requests[i].timeEnd){
+        while(j < numRequest){
+           if(cancels[i].tCancel < requests[j].timeBegin && cancels[i].tFixedLastCancel < requests[j].timeEnd){
                 if(cancels[i].pr == 1){
-                    requests[i].tBeginDoobslushit = cancels[i].tCancel;
-                    requests[i].tEndDoobslushit = cancels[i].tFixedLastCancel;
-                    iFind = 1000;
-                    //requests[i].timeEnd = requests[i].tEndDoobslushit + cancels[i].tCancelAverage;
-                }
-                if(cancels[i].pr == 2){
-                    requests[i].dangerous = "Произошел отказ 2 уровня";
-                    iFind = 1000;
-                }
-            }else if(cancels[i].tCancel < requests[i].timeBegin && cancels[i].tFixedLastCancel < requests[i].timeEnd){
-                if(cancels[i].pr == 1){
-                    requests[i].tBeginDoobslushit = cancels[i].tFixedLastCancel - requests[i].timeBegin; 
-                    requests[i].timeBegin = cancels[i].tFixedLastCancel;
-                    request[i].timeEnd +=  request[i].tBeginDoobslushit;
-                    iFind = 1000;
+                    requests[j].tBeginDoobslushit = requests[j].timeBegin - cancels[i].tFixedLastCancel; 
+                    requests[j].tEndDoobslushit = requests[j].tBeginDoobslushit + (requests[j].timeBegin - cancels[i].tFixedLastCancel)
+                    //requests[j].timeBegin = cancels[i].tFixedLastCancel;
+                    requests[j].timeEnd += requests[j].tBeginDoobslushit;
+                    goodRequest++;
+                    break;
                     // if(request[i+1].timeBegin < request[i].timeEnd){
                     //     request[i+1].timeBegin = requests[i].timeEnd; 
                     // }
+                }else if(cancels[i].pr == 2){
+                    requests[j].dangerous = "Произошел отказ 2 уровня"
+                    break;
                 }
-                if(cancels[i].pr == 2){
-                    requests[i].dangerous = "Произошел отказ 2 уровня"
-                    res = 1000;
-                }
-            }else if(cancels[i].tCancel > requests[i].timeBegin && cancels[i].tFixedLastCancel > requests[i].timeEnd){
+            }
+            if(cancels[i].tCancel > requests[j].timeBegin && cancels[i].tFixedLastCancel > requests[j].timeEnd){
                 if(cancels[i].pr == 1){
-                    requests[i].tBeginDoobslushit = requests[i].timeEnd - cancels[i].tCancel;
-                    requests[i].tEndDoobslushit = cancels[i].tFixedLastCancel;
-                    requests[i].timeEnd += requests[i].timeEnd - cancels[i].tCancel;
-                    iFind = 1000;    
-                }
-                if(cancels[i].pr == 2){
-                    requests[i].dangerous = "Произошел отказ 2 уровня";
-                    iFind = 1000;
+                    requests[j].tBeginDoobslushit = requests[j].timeEnd - cancels[i].tCancel;
+                    requests[j].tEndDoobslushit = cancels[i].tFixedLastCancel;
+                    requests[j].timeEnd += requests[j].timeEnd - cancels[i].tCancel;
+                    goodRequest++;
+                    break;    
+                }else if(cancels[i].pr == 2){
+                    requests[j].dangerous = "Произошел отказ 2 уровня";
+                    break;
                 } 
+            }
+            if(requests[j].timeBegin < cancels[i].tCancel && cancels[i].tFixedLastCancel < requests[j].timeEnd){
+                if(cancels[i].pr == 1){
+                    requests[j].tBeginDoobslushit = cancels[i].tCancel;
+                    requests[j].tEndDoobslushit = cancels[i].tFixedLastCancel;
+                    goodRequest++;
+                    break;
+                    //requests[i].timeEnd = requests[i].tEndDoobslushit + cancels[i].tCancelAverage;
+                }else if(cancels[i].pr == 2){
+                    requests[j].dangerous = "Произошел отказ 2 уровня";
+                    break;
+                }
             }
             j++;
         }
         i++
     }
-    console.log("new variant");
-    console.log(requests);
+    ShowInConsole(3);
+    //console.log("заявок обработано" + goodRequest);
+
     //ниже попытка сделать с приоритетами
     // i = 0;
     // while(i < numRequest){
@@ -221,6 +239,7 @@ function ClearConsols(){
     //очищаем консоли
    requestCosnole.innerHTML = "";
    CancelConsole.innerHTML = "";
+   resConsole.innerHTML ="";
    //RequestsAfterAnaliz.innerHTML = "";
    //CancelConsoleAfterAnaliz.innerHTML = "";
 }
@@ -234,7 +253,7 @@ function ShowInConsole(requesOrcancels){
             for (let i = 0; i < numRequest; i++) {
                 let pTag = document.createElement('p');//тег который будет отображать текст в консоли заявок
                 
-                pTag.innerHTML = `Заявка № ${i+1} <br/>  Время начала: ${requests[i].timeBegin} <br/> Время обработки: ${requests[i].timeWork} <br/> Время окончания: ${requests[i].timeEnd} <br/> Приоритет:${requests[i].priority}`;
+                pTag.innerHTML = `Заявка № ${i+1} <br/>  Время начала: ${requests[i].timeBegin} <br/> Время окончания: ${requests[i].timeEnd}`;
                 requestCosnole.append(pTag);
             }
             break;
@@ -252,15 +271,15 @@ function ShowInConsole(requesOrcancels){
             break;
 
         case 3:
+            let h2Tag3 = document.createElement('h2');
+            h2Tag3.innerHTML = `Заявки после работы`;
+            resConsole.append(h2Tag3);
             for (let i = 0; i < numRequest; i++) {
                 let pTag = document.createElement('p');//тег который будет отображать текст в консоли заявок
                 
-                pTag.innerHTML = `Заявка № ${i+1} <br/>  Время начала: ${requests[i].timeBegin} <br/> Время обработки: ${requests[i].timeWork} <br/> Время окончания: ${requests[i].timeEnd} <br/> F = ${resAnaliz[i]}`;
-                RequestsAfterAnaliz.append(pTag);
+                pTag.innerHTML = `Заявка № ${i+1} <br/>  Время начала: ${requests[i].timeBegin} <br/> Время время налача отказа: ${requests[i].tBeginDoobslushit} <br/> Время окончания отказа: ${requests[i].tEndDoobslushit} <br/>  Время окончания: ${requests[i].timeEnd} <br/> Отказ 2 уровня?:${requests[i].dangerous}`;
+                resConsole.append(pTag);
             }
-            let pTag = document.createElement('p');
-            pTag.innerHTML = `Обработанные заявки ${goodRequest}`;
-            RequestsAfterAnaliz.append(pTag);
             break;
 
         case 4:

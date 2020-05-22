@@ -27,12 +27,17 @@ input{
 }
 
 #CancelConsole{
-    width: 50%;
+    width: 33.3%;
 }
 
 
 #RequestConsole{
-    width: 50%;
+    width: 33.3%;
+    border-left: 1px solid black;
+}
+
+#ResConsole{
+    width: 33.3%;
     border-left: 1px solid black;
 }
 
@@ -52,6 +57,13 @@ h2{
     padding: 30px;
 }
 
-/* button{
-    display: inline-block;
-} */
+button{
+    padding: 4px 8px;
+    border-radius: 20%;
+    transition: background-color 0.2s linear;
+}
+
+button:hover{
+    background-color: burlywood;
+
+}
