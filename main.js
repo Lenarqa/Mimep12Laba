@@ -1,9 +1,10 @@
-var pCancel = document.getElementById('pCancel').value;
-var tFixedLastCancel = 0; //время устранения предыдущего отказа (в начале работы системы Tуст = 0); 
-var tCancelAverage = document.getElementById('intensivnostPostuplenia').value; //среднее время безотказной работы системы
+var pCancel;
+var tFixedLastCancel = 0; 
+var tCancelAverage;
 
-var intensivnostPostuplenia = document.getElementById('intensivnostPostuplenia').value;
-var intensivnostObrabotki = document.getElementById('intensivnostObrabotki').value;
+var intensivnostPostuplenia;
+var intensivnostObrabotki;
+var typeRequestPotok;
 
 //консоли
 var requestCosnole = document.getElementById('RequestConsole');
@@ -15,7 +16,7 @@ var requests = []; //массив заявок
 var cancels = []; //массив отказов
 var resAnaliz = []; //массив котором содержатся (F) результаты функции Анализ
 
-var numRequest = document.getElementById('numRequest').value;
+var numRequest;
 
 function Cancel(numRequest){
     let i = 0;
@@ -70,6 +71,7 @@ function CreatePotok1(type,numRequest){
         }else{
             if(type == 1){
                 requests[i].timeBegin = requests[i-1].timeEnd + Raspredelenie(intensivnostPostuplenia);
+                console.log("tymeBegin = " + requests[i].timeBegin);
             }else if(type == 2){
                 requests[i].timeBegin = requests[i-1].timeBegin + Raspredelenie(intensivnostPostuplenia);
             }else if(type == 3){
@@ -102,23 +104,31 @@ function Analiz(tEnd, tCancel, tBegin, tFixedLastCancel){
 }
 
 function ChooseClick(){
-    tFixedLastCancel = 0;
-    //очищаем консоли
-    requestCosnole.innerHTML = "";
-    CancelConsole.innerHTML = "";
-    RequestsAfterAnaliz.innerHTML = "";
-    CancelConsoleAfterAnaliz.innerHTML = "";
+    ClearConsols();//чистим все консоли.
 
+    //Присваиваем значения из html страницы
+    pCancel = document.getElementById('pCancel').value;
+    tFixedLastCancel = 0; //время устранения предыдущего отказа (в начале работы системы Tуст = 0); 
+    tCancelAverage = document.getElementById('intensivnostPostuplenia').value; //среднее время безотказной работы системы
+
+    intensivnostPostuplenia = document.getElementById('intensivnostPostuplenia').value;
+    intensivnostObrabotki = document.getElementById('intensivnostObrabotki').value;
+    typeRequestPotok = document.getElementById('typeRequestPotok').value;
+
+    numRequest = document.getElementById('numRequest').value;
+
+
+    
     Cancel(numRequest);
-    console.log("Массив отказов");
+    CreatePotok1(typeRequestPotok, numRequest);
+    console.log("request NEW");
     console.log(requests);
-    CreatePotok1(1, numRequest);
 
     //вывод на сайт поток заявок
     for (let i = 0; i < numRequest; i++) {
         let pTag = document.createElement('p');//тег который будет отображать текст в консоли заявок
         
-        pTag.innerHTML = `Заявка № ${i+1} <br/>  Время начала: ${requests[i].timeBegin} <br/> Время обработки: ${requests[i].timeWork} <br/> Время окончания: ${requests[i].timeEnd} <br/>`;
+        pTag.innerHTML = `Заявка № ${i+1} <br/>  Время начала: ${requests[i].timeBegin} <br/> Время обработки: ${requests[i].timeWork} <br/> Время окончания: ${requests[i].timeEnd} <br/> Приоритет:${requests[i].priority}`;
         requestCosnole.append(pTag);
     }
 
@@ -129,9 +139,6 @@ function ChooseClick(){
         pTag.innerHTML = `Отказ № ${i+1} <br/>  Время отказа: ${cancels[i].tCancel} <br/> Время устранения последнего отказа: ${cancels[i].tFixedLastCancel} <br/> Тип отказа: ${cancels[i].pr}`;
         CancelConsole.append(pTag);
     }
-
-    // console.log("заявки 1 типа");
-    // console.log(requests);
 
     var goodRequest = 0;
     var i = 0;
@@ -176,11 +183,21 @@ function ChooseClick(){
         pTag.innerHTML = `Отказ № ${i+1} <br/>  Время отказа: ${cancels[i].tCancel} <br/> Время устранения последнего отказа: ${cancels[i].tFixedLastCancel} <br/> Тип отказа: ${cancels[i].pr}`;
         CancelConsoleAfterAnaliz.append(pTag);
     }
-    console.log("F = " + resAnaliz);
-    console.log("Обработанных заявок " + goodRequest);
+    // console.log("F = " + resAnaliz);
+    // console.log("Обработанных заявок " + goodRequest);
     
-    console.log("заявки после работы с F");
-    console.log(requests);
+    // console.log("заявки после работы с F");
+    // console.log(requests);
 
    delete cancels;
+   delete requests;
+   delete resAnaliz; 
+}
+
+function ClearConsols(){
+    //очищаем консоли
+   requestCosnole.innerHTML = "";
+   CancelConsole.innerHTML = "";
+   RequestsAfterAnaliz.innerHTML = "";
+   CancelConsoleAfterAnaliz.innerHTML = "";
 }
