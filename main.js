@@ -11,6 +11,8 @@ var goodRequest;//количество обработанных заявок
 var requestCosnole = document.getElementById('RequestConsole');
 var CancelConsole = document.getElementById('CancelConsole');
 var resConsole = document.getElementById('ResConsole');
+var workConsole = document.getElementById('workConsole');
+
 //var RequestsAfterAnaliz = document.getElementById('RequestsAfterAnaliz');
 //var CancelConsoleAfterAnaliz = document.getElementById('CancelConsoleAfterAnaliz');
 var numCancels = document.getElementById('numCancels');
@@ -133,18 +135,6 @@ function ChooseClick(){
     CreatePotok1(typeRequestPotok, numRequest);//формируем массив заявок
     ShowInConsole(1);//вывод на сайт поток заявок
     ShowInConsole(2);//вывод на сайт поток откразов
-    
-    // i = 0;
-    // while(i < numCancels){
-    //     console.log("numCancels " + i);
-        
-    //     let j = 0;
-    //     while(j < numRequest && iFind < i){
-    //         console.log("request = " + j);
-    //         j++;
-    //     }
-    //     i++;
-    // }
 
     i = 0;
     var j = 0;
@@ -169,6 +159,7 @@ function ChooseClick(){
                         }
                     }
                 }
+                ShowInConsole(4, j+1, resAnaliz[i]);
                 j++;
             }else if(((resAnaliz[i] == 2)&&(cancels[j].pr == 2)) || (resAnaliz[i] == 3)){
                 console.log("F = 2  && PR = 2 второе уловие заявка " + (i+1) + " Отказ " + (j+1));
@@ -187,6 +178,7 @@ function ChooseClick(){
                         }
                     }
                 }
+                ShowInConsole(4, j+1, resAnaliz[i]);
                 j++
             }else{
                 console.log("F = 4 переходим в кледующему отказу");
@@ -197,6 +189,7 @@ function ChooseClick(){
     }
     console.log(resAnaliz);
     ShowInConsole(3);
+    
     
     
     //второй варик
@@ -298,7 +291,7 @@ function ClearConsols(){
    //CancelConsoleAfterAnaliz.innerHTML = "";
 }
 
-function ShowInConsole(requesOrcancels){
+function ShowInConsole(requesOrcancels, nomberCancelWork, F){
     switch (requesOrcancels) {
         case 1:
             let h2Tag = document.createElement('h2');
@@ -331,18 +324,26 @@ function ShowInConsole(requesOrcancels){
             for (let i = 0; i < numRequest; i++) {
                 let pTag = document.createElement('p');//тег который будет отображать текст в консоли заявок
                 
-                pTag.innerHTML = `Заявка № ${i+1} <br/>  Время начала: ${requests[i].timeBegin} <br/> Время время налача отказа: ${requests[i].tBeginDoobslushit} <br/> Время окончания отказа: ${requests[i].tEndDoobslushit} <br/>  Время окончания: ${requests[i].timeEnd} <br/> Отказ 2 уровня?:${requests[i].dangerous}`;
+                pTag.innerHTML = `Заявка № ${i+1} <br/>  Время начала: ${requests[i].timeBegin} <br/> Время время налача отказа: ${requests[i].tBeginDoobslushit} <br/> Время окончания отказа: ${requests[i].tEndDoobslushit} <br/>  Время окончания: ${requests[i].timeEnd}`;
                 resConsole.append(pTag);
             }
             break;
 
         case 4:
-            for (let i = 0; i < numRequest; i++) {
-                let pTag = document.createElement('p');//тег который будет отображать текст в консоли заявок
+                let mainDiv = document.createElement('div');
+                mainDiv.className = "consokWorkItem";
                 
-                pTag.innerHTML = `Отказ № ${i+1} <br/>  Время отказа: ${cancels[i].tCancel} <br/> Время устранения последнего отказа: ${cancels[i].tFixedLastCancel} <br/> Тип отказа: ${cancels[i].pr}`;
-                CancelConsoleAfterAnaliz.append(pTag);
-            }
+                let h2Tag4 = document.createElement('h2');
+                h2Tag4.innerHTML = `Заявки после работы c Отказом №` + nomberCancelWork + `, F = ` + F;
+                mainDiv.append(h2Tag4);
+
+                for (let i = 0; i < numRequest; i++) {
+                    let pTag = document.createElement('p');//тег который будет отображать текст в консоли заявок
+                    
+                    pTag.innerHTML = `Заявка № ${i+1} <br/>  Время начала: ${requests[i].timeBegin} <br/> Время время налача отказа: ${requests[i].tBeginDoobslushit} <br/> Время окончания отказа: ${requests[i].tEndDoobslushit} <br/>  Время окончания: ${requests[i].timeEnd}`;
+                    mainDiv.append(pTag);
+                }
+                workConsole.append(mainDiv);      
             break;
     }
 }

@@ -2,6 +2,7 @@ body, html{
     margin: 0;
     padding: 0;
 }
+
 .container{
     width: 1200px;
     border-right: 1px solid black;
@@ -65,5 +66,13 @@ button{
 
 button:hover{
     background-color: burlywood;
+}
 
+#workConsole{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.consokWorkItem{
+    width: 33.3%;
 }
