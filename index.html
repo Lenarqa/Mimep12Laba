@@ -8,46 +8,59 @@
 </head>
 <body>
     <header>
-        <img src="" alt="">
+        <div class="header-logo">
+            <img src="img/logo.png" alt="logo.png">
+        </div>
+        <div class="header-title">
+            <p>Моделирование процессов обслуживания заявок в условиях отказов</p>
+        </div>
+        <div class="header-text">
+                <p>Выполняли:<br>
+                    Жукова К.П <br>
+                    Валиев Л.Р
+                </p>     
+                <p>группа: 447-1</p>
+        </div>
     </header>
     <div class="container">
-        <p>Примечание: все дробные числа вводить через точку (0.2)</p>
-        <h3>Количество заявок</h3>
-        <input type="text" placeholder="Введите время период работы системы" id="numRequest" >
-
-        <h3>Тип потока заявок</h3>
-        <p>1 - непересекающийся</p>
-        <p>2 - пересекающийся</p>
-        <p>3 - пересекающийся с двумя приоритетами</p>
-        <input type="text" placeholder="Введите тип потока заявок" id="typeRequestPotok" >
-
-        <h3>Интенсивность потока заявок</h3>
-        <input type="text" placeholder="Введите интенсивность потока" id="intensivnostPostuplenia">
+        <div class="wrap">
+            <div>
+                <p>Примечание: все дробные числа вводить через точку (0.2)</p>
+    
+                <h3>Количество заявок</h3>
+                <input type="text" placeholder="Введите время период работы системы" id="numRequest" >
         
-        <h3>Введите количество отказов</h3>
-        <input type="text" placeholder="Введите количество отказов" id="numCancels">
+                <h3>Тип потока заявок</h3>
+                <p>1 - непересекающийся</p>
+                <p>2 - пересекающийся</p>
+                <p>3 - пересекающийся с двумя приоритетами</p>
+                <input type="text" placeholder="Введите тип потока заявок" id="typeRequestPotok" >
         
-
-        <h3>Интенсивность потока обслуживания</h3>
-        <input type="text" placeholder="Введите интенсивность обработки" id="intensivnostObrabotki">
-
-        <h3>Вероятность выпадения отказа 1 уровня</h3>
-        <input type="text" placeholder="Вероятность выпадения отказа 1 уровня" id="pCancel">
-
-        <h3>Среднее время безотказной работы системы</h3>
-        <input type="text" placeholder="среднее время безотказной работы системы" id="tCancelAverage">
-
-        <h3>Среднее время устранения отказа</h3>
-        <input type="text" placeholder="среднее время безотказной работы системы" id="tFixAverage">
-
-        <button onclick="ChooseClick()">Рассчитать</button>
+                <h3>Интенсивность потока заявок</h3>
+                <input type="text" placeholder="Введите интенсивность потока" id="intensivnostPostuplenia">
+                
+                <h3>Введите количество отказов</h3>
+                <input type="text" placeholder="Введите количество отказов" id="numCancels">
+                
+                <h3>Интенсивность потока обслуживания</h3>
+                <input type="text" placeholder="Введите интенсивность обработки" id="intensivnostObrabotki">
+            </div>
+            <div>
+                <h3>Вероятность выпадения отказа 1 уровня</h3>
+                <input type="text" placeholder="Вероятность выпадения отказа 1 уровня" id="pCancel">
         
-        <!-- <div class="consols table-header">
-            <h2>Поток отказов до анализа</h2>
-            <h2>Поток отказов после анализа</h2>
-            <h2>Заявки</h2>
-            <h2>Заявки после анализ</h2>
-        </div> -->
+                <h3>Среднее время безотказной работы системы</h3>
+                <input type="text" placeholder="среднее время безотказной работы системы" id="tCancelAverage">
+        
+                <h3>Среднее время устранения отказа</h3>
+                <input type="text" placeholder="среднее время устранения отказа" id="tFixAverage">
+            </div>
+        </div>
+
+        <label class="check-label">
+            <button onclick="ChooseClick()">Рассчитать</button>
+        </label>
+        
         <div class="consols">
             <div id="CancelConsole"><h2>Отказы</h2></div>
             <!-- <div id="CancelConsoleAfterAnaliz"><h2>Поток отказов после анализа</h2></div> -->

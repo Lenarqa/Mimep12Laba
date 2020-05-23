@@ -3,13 +3,48 @@ body, html{
     padding: 0;
 }
 
+header{
+    display: flex;
+    flex-direction: row;
+    height: 10vh;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    color: #1e5aa1;
+    font-size: 20px;
+}
+
+.header-logo{
+    display: flex;
+    align-items: center;
+    width: 20%;
+}
+
+.header-title{
+    display: flex;
+    width: 60%;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 25px;
+}
+
+.header-text{
+    display: flex;
+    width: 20%;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .container{
     width: 1200px;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
     height: 100vh;
     margin: 0 auto;
+    /* padding: 0; */
     text-align: center;
+}
+
+.wrap{
+    display: flex;
+    justify-content: space-around;
 }
 
 input{
@@ -30,7 +65,6 @@ input{
 #CancelConsole{
     width: 33.3%;
 }
-
 
 #RequestConsole{
     width: 33.3%;
@@ -58,14 +92,20 @@ h2{
     padding: 30px;
 }
 
-button{
-    padding: 4px 8px;
-    border-radius: 20%;
+button {
+    background-color:  #1e5aa1; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
     transition: background-color 0.2s linear;
 }
 
 button:hover{
-    background-color: burlywood;
+    background-color: #1b467c;
 }
 
 #workConsole{
@@ -76,3 +116,10 @@ button:hover{
 .consokWorkItem{
     width: 33.3%;
 }
+
+
+.check-label {
+    margin-top: 3vh;
+    display: block;
+}
+
